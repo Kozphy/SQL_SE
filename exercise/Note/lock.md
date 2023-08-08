@@ -6,7 +6,7 @@
 
    - Multiple transactions can hold shared locks on the same data simultaneously.
    - Transactions with shared locks `can read the data but cannot modify it`.
-   - Shared locks are used when a transaction wants to read data without the risk of being affected by other transactions reading the same data simultaneously.
+   - Shared locks are used when `a transaction wants to read data without the risk of being affected by other transactions reading the same data simultaneously`.
    - Shared locks are compatible with other shared locks but `not compatible with exclusive locks`.
    - Once a transaction holds a shared lock, other transactions can also acquire shared locks on the same data, but no transaction can acquire an exclusive lock until all shared locks are released.
 

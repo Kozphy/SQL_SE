@@ -1,5 +1,7 @@
 # transaction
 
+transaction 可用來設定多個連續資料操作必須全部成功，否則回復到未執行任何操作的狀態。
+
 ## What is transaction
 
 A database transaction is `a unit of work` or a `sequence of operations` that is executed as a single logical unit of work. In the context of databases, a transaction represents a series of database operations that need to be executed together to maintain data consistency and integrity.

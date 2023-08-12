@@ -197,10 +197,10 @@ SELECT COALESCE(NULL, NULL, NULL, 'JigJun', NULL, 1);
 
 ###### Different types of JOINS
 
-- (INNER) JOIN: Returns records that have matching values in both tables
-- LEFT (OUTER) JOIN: Return all records from the left table, and the matched records from the right table
-- RIGHT (OUTER) JOIN: Return all records from the right table, and the matched records from the left table
-- FULL (OUTER) JOIN: Return all records when there is a match in either left or right table
+- `(INNER) JOIN`: Returns records that have matching values in both tables
+- `LEFT (OUTER) JOIN`: Return all records from the left table, and the matched records from the right table
+- `RIGHT (OUTER) JOIN`: Return all records from the right table, and the matched records from the left table
+- `FULL (OUTER) JOIN`: Return all records when there is a match in either left or right table
 
 ```sql
 SELECT column_name(s)
@@ -303,8 +303,8 @@ GO
 -- exec [SP_Template_Get] 1
 CREATE PROCEDURE [dbo].[SP_Template_Get]
 	@Parameter INT,
-  @PageNumber INT = 1,
-  @PageSize INT = 20,
+    @PageNumber INT = 1,
+    @PageSize INT = 20,
 AS
 BEGIN
     DECLARE @Result TABLE

@@ -8,9 +8,9 @@ A database transaction is `a unit of work` or a `sequence of operations` that is
 
 ## ACID
 
-1. `Atomicity`: Atomicity ensures that either **all the operations in the transaction are successfully** completed, or **none of them are performed at all**. If any part of the transaction fails, all changes made by the transaction are rolled back, and the database remains unchanged.
+1. `Atomicity`: Atomicity ensures that either **all the operations in the transaction are successfully** completed, or **none of them are performed at all**. If any part of the transaction `fails`, all changes made by the transaction are `rolled back`, and the database remains unchanged.
 
-2. `Consistency`: Consistency ensures that the database `starts and ends a transaction in a consistent state`. A transaction must bring the database from one valid state to another. This means that all integrity constraints, business rules, and other validation criteria must be satisfied during the transaction.
+2. `Consistency`: Consistency ensures that the database `starts and ends a transaction in a consistent state`. A transaction must bring the database from one valid state to another. This means that `all integrity constraints, business rules, and other validation criteria must be satisfied during the transaction`.
 
    - Data Integrity
      - Consistency ensures that the data stored in the database remains `accurate` and `valid throughout` the execution of a transaction.

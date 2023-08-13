@@ -52,11 +52,28 @@ on Products.Manufacturer = Manufacturers.Code
 group by Manufacturers.Name;
 
 -- 1.14 Select the names of manufacturer whose products have an average price larger than or equal to $150.
-
+select Manufacturers.Name, AVG(Price) as 'avgPrice' 
+from Products  join  Manufacturers
+on Products.Manufacturer = Manufacturers.Code
+group by Manufacturers.Name
+having AVG(Price) >= 150;
 
 -- 1.15 Select the name and price of the cheapest product.
+select TOP 1 name, MIN(Price) as 'price' from Products
+group by Name
+order by price asc;
+
 -- 1.16 Select the name of each manufacturer along with the name and price of its most expensive product.
+select name,   from Products join Manufacturers
+from 
+	(select )
+
+
+
 -- 1.17 Add a new product: Loudspeakers, $70, manufacturer 2.
+
 -- 1.18 Update the name of product 8 to "Laser Printer".
+
 -- 1.19 Apply a 10% discount to all products.
+
 -- 1.20 Apply a 10% discount to all products with a price larger than or equal to $120.

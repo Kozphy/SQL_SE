@@ -9,3 +9,35 @@
 為了避免 N+1 問題，可以使用"預先載入"（Eager Loading）的方法，一次性將所需資料預先載入，而不是等到需要時才進行額外的查詢。在大多數 ORM 工具中，可以使用類似 JOIN 或 SELECT IN 的方式，將關聯資料一併查詢，以減少資料庫查詢的次數。
 
 處理好 N+1 問題對於維持資料庫查詢效能和應用程式的整體效率非常重要。
+
+## resolve N + 1 in entity framework
+
+1. Eager Loading
+
+```csharp=
+var authors = context.Authors.Include(a => a.Books).ToList();
+```
+
+2. Explicit Loading
+
+```csharp=
+var author = context.Authors.First();
+context.Entry(author).Collection(a => a.Books).Load();
+```
+
+3. Projection
+
+```csharp=
+var authorData = context.Authors.Select(a => new
+{
+    AuthorName = a.Name,
+    BookCount = a.Books.Count
+}).ToList();
+```
+
+4. Batch Loading
+
+```csharp=
+var authors = context.Authors.ToList();
+context.Entry(authors).Collection(a => a.Books).Load();
+```

@@ -11,13 +11,72 @@
    - Once a transaction holds a shared lock, other transactions can also acquire shared locks on the same data, but no transaction can acquire an exclusive lock until all shared locks are released.
    - 不變更或更新資料的讀取作業
 
-2. `Exclusive Lock (Write Lock)`:
+```csharp
+using (var context = new YourDbContext())
+{
+    using (var transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.Read))
+    {
+        try
+        {
+            // Perform your data retrieval operations here
+            // For example:
+            var entity = context.YourEntities.FirstOrDefault(e => e.Id == entityId);
 
+            // At this point, the data is locked for reading by other transactions
+
+            // Perform any necessary read-only operations on the entity
+
+            // Commit the transaction to release the lock
+            transaction.Commit();
+        }
+        catch (Exception)
+        {
+            // Handle exceptions or errors
+            transaction.Rollback();
+        }
+    }
+}
+```
+
+2. `Exclusive Lock (Write Lock)`:
    - Only one transaction can hold an exclusive lock on data at a time.
    - Transactions with exclusive locks have both read and write access to the data. They can read and modify the data.
    - Exclusive locks are used when a transaction wants to `modify data` and ensure that no other transaction can read or modify the data at the same time to maintain data consistency.
    - Exclusive locks are not compatible with any other locks (neither shared nor exclusive). If a transaction holds an exclusive lock on data, no other transaction can acquire any lock on the same data until the exclusive lock is released.
    - 使用在資料修改動作，EX: `insert、update、delete`。
+
+```csharp
+using (var context = new YourDbContext())
+{
+    using (var transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable))
+    {
+        try
+        {
+            // Perform your data retrieval and modification operations here
+            // For example:
+            var entity = context.YourEntities.FirstOrDefault(e => e.Id == entityId);
+
+            if (entity != null)
+            {
+                // Modify the entity as needed
+                entity.Property = "New Value";
+                context.SaveChanges();
+
+                // At this point, the data is locked exclusively
+                // No other transactions can access or modify this data until the lock is released
+
+                // Commit the transaction to release the lock
+                transaction.Commit();
+            }
+        }
+        catch (Exception)
+        {
+            // Handle exceptions or errors
+            transaction.Rollback();
+        }
+    }
+}
+```
 
 3. `Update Lock(Shared Lock/ read Lock)`: A combination of shared and exclusive lock. It `allows multiple transactions to read the data simultaneously` but prevents other transactions from acquiring exclusive or update locks until the current transaction is completed.
 

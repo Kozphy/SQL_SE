@@ -14,20 +14,20 @@
 
 1. Eager Loading
 
-```csharp=
+```csharp
 var authors = context.Authors.Include(a => a.Books).ToList();
 ```
 
 2. Explicit Loading
 
-```csharp=
+```csharp
 var author = context.Authors.First();
 context.Entry(author).Collection(a => a.Books).Load();
 ```
 
 3. Projection
 
-```csharp=
+```csharp
 var authorData = context.Authors.Select(a => new
 {
     AuthorName = a.Name,
@@ -37,7 +37,7 @@ var authorData = context.Authors.Select(a => new
 
 4. Batch Loading
 
-```csharp=
+```csharp
 var authors = context.Authors.ToList();
 context.Entry(authors).Collection(a => a.Books).Load();
 ```

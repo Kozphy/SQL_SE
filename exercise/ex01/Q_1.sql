@@ -63,17 +63,27 @@ select TOP 1 name, MIN(Price) as 'price' from Products
 group by Name
 order by price asc;
 
--- 1.16 Select the name of each manufacturer along with the name and price of its most expensive product.
-select name,   from Products join Manufacturers
+-- 1.16 Select the name of each manufacturer along with the name and price of its most expensive product. (solve this)
+select p.Name, p.Price 
 from 
-	(select )
-
+	Products AS p join Manufacturers AS m on p.Code = m.Code;
 
 
 -- 1.17 Add a new product: Loudspeakers, $70, manufacturer 2.
+insert into Products (Code, Name, Price, Manufacturer) values (11, 'Loudspeakers', 70, 2);
+
 
 -- 1.18 Update the name of product 8 to "Laser Printer".
+select * from Products;
+
+update Products 
+set name = 'Laser Printer' where Name = 'Printer';
 
 -- 1.19 Apply a 10% discount to all products.
+update Products 
+set Price = Price * 0.9;
 
 -- 1.20 Apply a 10% discount to all products with a price larger than or equal to $120.
+update Products
+set Price = Price * 0.9
+where Price >= 120;

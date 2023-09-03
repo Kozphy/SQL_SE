@@ -41,6 +41,7 @@ where warehouses.Capacity < temp.temp_c
 
 --3.10 Select the codes of all the boxes located in Chicago.
 
+
 --3.11 Create a new warehouse in New York with a capacity for 3 boxes.
 
 --3.12 Create a new box, with code "H5RT", containing "Papers" with a value of $200, and located in warehouse 2.

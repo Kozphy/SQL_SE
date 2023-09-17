@@ -33,24 +33,37 @@ from boxes
 group by warehouse;
 
 --3.9 Select the codes of all warehouses that are saturated (a warehouse is saturated if the number of boxes in it is larger than the warehouse's capacity).
-
 select Code
-from Warehouses join (select Warehouse AS temp_w, count(*) AS temp_c from boxes group by Warehouse) AS temp
+from Warehouses join (select Warehouse AS temp_w, count(*) AS temp_c 
+from boxes group by Warehouse) AS temp
 on (warehouses.code = temp.temp_w)
 where warehouses.Capacity < temp.temp_c
 
 --3.10 Select the codes of all the boxes located in Chicago.
-
+select Boxes.Code from Boxes join Warehouses 
+on Boxes.Warehouse = Warehouses.Code
+where Warehouses.Location = 'Chicago';
 
 --3.11 Create a new warehouse in New York with a capacity for 3 boxes.
+insert into Warehouses (Code, Location, Capacity) 
+values (7, 'New York', 3);
 
 --3.12 Create a new box, with code "H5RT", containing "Papers" with a value of $200, and located in warehouse 2.
+insert into Boxes (Code, Contents, Value, Warehouse) 
+values ('H5RT', 'Papers', 200, 2);
 
 --3.13 Reduce the value of all boxes by 15%.
+update Boxes
+set Value = Value * 0.85;
 
 --3.14 Remove all boxes with a value lower than $100.
+delete from Boxes where Value <= 100;
 
--- 3.15 Remove all boxes from saturated warehouses.
+-- 3.15 Remove all boxes from saturated (a warehouse is saturated if the number of boxes in it 
+-- is larger than the warehouse's capacity) warehouses.
+
+
+
 
 -- 3.16 Add Index for column "Warehouse" in table "boxes"
     -- !!!NOTE!!!: index should NOT be used on small tables in practice

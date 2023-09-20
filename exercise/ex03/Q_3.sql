@@ -59,17 +59,29 @@ set Value = Value * 0.85;
 --3.14 Remove all boxes with a value lower than $100.
 delete from Boxes where Value <= 100;
 
--- 3.15 Remove all boxes from saturated (a warehouse is saturated if the number of boxes in it 
--- is larger than the warehouse's capacity) warehouses.
-
-
-
+-- 3.15 Remove all boxes from saturated (a warehouse is saturated if the number of boxes in it is larger than the warehouse's capacity) warehouses.
+select * from boxes
+where Warehouse in (
+	select Code
+		from Warehouses
+		where Capacity <
+		(
+			select COUNT(*)
+			from Boxes
+			where Warehouse = Warehouses.Code
+		)
+);
 
 -- 3.16 Add Index for column "Warehouse" in table "boxes"
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
+create index Boxes_Warehouse 
+on Boxes (Warehouse);
 
 -- 3.17 Print all the existing indexes
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
+exec sys.sp_helpindex @objname= N'Boxes';
 
 -- 3.18 Remove (drop) the index you added just
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
+create index PK_name
+on Boxes ();

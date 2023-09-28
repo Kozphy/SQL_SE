@@ -12,20 +12,33 @@ select distinct Rating  from Movies;
 select Rating from Movies where Rating is null;
 
 -- 4.4 Select all movie theaters that are not currently showing a movie.
-select * from MovieTheaters where Movie is null;
+select * from MovieTheaters 
+where Movie is null;
+
+select * from MovieTheaters;
+select * from Movies;
 
 -- 4.5 Select all data from all movie theaters 
--- and, additionally, the data from the movie that is being shown in the theater (if one is being shown).
+-- and, additionally, the data from the movie that 
+-- is being shown in the theater (if one is being shown).
 select * 
 from MovieTheaters join Movies on
-MovieTheaters.Code = Movies.Code;
+MovieTheaters.Movie = Movies.Code;
 
--- 4.6 Select all data from all movies and, if that movie is being shown in a theater, show the data from the theater.
-select * from 
+-- 4.6 Select all data from all movies and, 
+-- if that movie is being shown in a theater, 
+-- "show the data from the theater".
+select * from MovieTheaters left join Movies
+on MovieTheaters.Code = Movies.Code;
 
 -- 4.7 Show the titles of movies not currently being shown in any theaters.
+select title from Movies join MovieTheaters 
+on Movies.Code = MovieTheaters.Code
+where MovieTheaters.Movie is null;
+
 
 -- 4.8 Add the unrated movie "One, Two, Three".
+
 
 -- 4.9 Set the rating of all unrated movies to "G".
 

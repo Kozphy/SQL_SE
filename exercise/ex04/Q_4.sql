@@ -38,8 +38,20 @@ where MovieTheaters.Movie is null;
 
 
 -- 4.8 Add the unrated movie "One, Two, Three".
+insert into [dbo].[Movies] (Code, Title, Rating) 
+values 
+(9, 'One', 'G'),
+(10, 'Two', 'PG'),
+(11, 'Three', 'NC-17');
 
+insert into Movies (Title, Rating)
+values
+('One', 'Two', 'Three', NULL);
+
+select * from Movies;
 
 -- 4.9 Set the rating of all unrated movies to "G".
+select * from Movies where Rating = N'G';
 
 -- 4.10 Remove movie theaters projecting movies rated "NC-17".
+select * from Movies where Rating = N'NC-17';

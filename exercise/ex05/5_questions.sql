@@ -1,11 +1,21 @@
 -- https://en.wikibooks.org/wiki/SQL_Exercises/Pieces_and_providers
 -- 5.1 Select the name of all the pieces. 
+select name from pieces;
 
 -- 5.2  Select all the providers' data. 
+select * from Providers;
 
 -- 5.3 Obtain the average price of each piece (show only the piece code and the average price).
+select piece, avg(price)
+from Provides
+group by piece;
 
 -- 5.4  Obtain the names of all providers who supply piece 1.
+select name from Providers
+join Provides on Providers.Code = Provides.Provider
+where Piece = 1;
+
+
 
 -- 5.5 Select the name of pieces provided by provider with code "HAL".
 

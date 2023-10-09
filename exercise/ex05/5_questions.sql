@@ -15,9 +15,11 @@ select name from Providers
 join Provides on Providers.Code = Provides.Provider
 where Piece = 1;
 
-
-
 -- 5.5 Select the name of pieces provided by provider with code "HAL".
+select name from Pieces
+where Code in (
+	select Piece from Provides where Provider = 'HAL'
+);
 
 -- 5.6
 -- ---------------------------------------------
@@ -25,6 +27,8 @@ where Piece = 1;
 -- Interesting and important one.
 -- For each piece, find the most expensive offering of that piece and include the piece name, provider name, and price 
 -- (note that there could be two providers who supply the same piece at the most expensive price).
+
+
 
 -- ---------------------------------------------
 -- 5.7 Add an entry to the database to indicate that "Skellington Supplies" (code "TNBC") will provide sprockets (code "1") for 7 cents each.

@@ -21,12 +21,22 @@ where Code in (
 	select Piece from Provides where Provider = 'HAL'
 );
 
+
 -- 5.6
 -- ---------------------------------------------
 -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 -- Interesting and important one.
--- For each piece, find the most expensive offering of that piece and include the piece name, provider name, and price 
+-- For each piece, find the most expensive 
+-- offering of that piece and include the piece name, provider name, and price 
 -- (note that there could be two providers who supply the same piece at the most expensive price).
+select Piece, Providers.Name, Price from Pieces
+join Provides on Pieces.Code = Provides.Piece
+join Providers on Providers.Code = Provides.Provider
+where Price = 
+(
+	select MAX(Price) from Provides
+	where Pieces.Code = Provides.Piece
+);
 
 
 

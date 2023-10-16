@@ -41,11 +41,15 @@ where Price =
 
 
 -- ---------------------------------------------
--- 5.7 Add an entry to the database to indicate that "Skellington Supplies" (code "TNBC") will provide sprockets (code "1") for 7 cents each.
+-- 5.7 Add an entry to the database to indicate that "Skellington Supplies" 
+-- (code "TNBC") will provide sprockets (code "1") for 7 cents each.
+
 
 -- 5.8 Increase all prices by one cent.
 
+
 -- 5.9 Update the database to reflect that "Susan Calvin Corp." (code "RBT") will not supply bolts (code 4).
+
 
 -- 5.10 Update the database to reflect that "Susan Calvin Corp." (code "RBT") will not supply any pieces 
     -- (the provider should still remain in the database).

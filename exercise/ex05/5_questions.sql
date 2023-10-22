@@ -47,8 +47,12 @@ update Provides
 set  Price = Price + 1;
 
 
--- 5.9 Update the database to reflect that "Susan Calvin Corp." (code "RBT") will not supply bolts (code 4).
+-- 5.9 Update the database to reflect that "Susan Calvin Corp." 
+-- (code "RBT") will not supply bolts (code 4).
+delete from Provides where Provider = 'RBT' and Piece = 4;
 
 
--- 5.10 Update the database to reflect that "Susan Calvin Corp." (code "RBT") will not supply any pieces 
-    -- (the provider should still remain in the database).
+-- 5.10 Update the database to reflect that "Susan Calvin Corp." 
+-- (code "RBT") will not supply any pieces 
+-- (the provider should still remain in the database).
+delete from Provides where Provider = 'RBT';

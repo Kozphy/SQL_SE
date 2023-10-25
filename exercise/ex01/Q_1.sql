@@ -24,7 +24,8 @@ join Manufacturers on Products.Manufacturer = Manufacturers.Code
  where  Manufacturer = 2
 
 -- 1.8 Compute the number of products with a price larger than or equal to $180.
-select count(*) from Products where Price > 180 or Price = 180;
+select Name, count(*) as priceBiggerThan_180 from Products where Price > 180 or Price = 180
+group by Name;
 
 -- 1.9 Select the name and price of all products with a price larger than or equal to $180, and sort first by price (in descending order), and then by name (in ascending order).
 select name, price from Products where price > 180 or price = 180

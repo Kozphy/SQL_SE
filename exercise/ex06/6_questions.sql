@@ -15,9 +15,7 @@ ORDER BY Projects.Name,
 SELECT Projects.Name
 FROM AssignedTo
 JOIN Projects ON Projects.Code = AssignedTo.Project
-WHERE Projects.Code not in (
-    select Project FROM AssignedTo
-);
+
 
 SELECT Name 
 FROM Projects

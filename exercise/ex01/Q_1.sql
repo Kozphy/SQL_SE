@@ -1,3 +1,4 @@
+-- link: https://en.wikibooks.org/wiki/SQL_Exercises/The_computer_store
 -- 1.1 Select the names of all the products in the store.
 select Name from Products;
 
@@ -65,9 +66,34 @@ group by Name
 order by price asc;
 
 -- 1.16 Select the name of each manufacturer along with the name and price of its most expensive product. (solve this)
-select p.Name, p.Price 
+select top 1 with ties
+Manufacturers.Name as manufacturers_name,
+Products.Price,
+Products.Name as products_name
+from Manufacturers
+join Products on Manufacturers.Code = Products.Manufacturer
+group by Products.Price, Products.Name, Manufacturers.Name
+order by RANK() OVER(PARTITION BY Manufacturers.Name order by Price desc);
+
+select 
+max_price_mapping.name as manu_name, 
+max_price_mapping.price, 
+products_with_manu_name.name as product_name
 from 
-	Products AS p join Manufacturers AS m on p.Code = m.Code;
+    (SELECT Manufacturers.Name, MAX(Price) price
+     FROM Products, Manufacturers
+     WHERE Manufacturer = Manufacturers.Code
+     GROUP BY Manufacturers.Name)
+     as max_price_mapping
+   left join
+     (select products.*, manufacturers.name manu_name
+      from products join manufacturers
+      on (products.manufacturer = manufacturers.code))
+      as products_with_manu_name
+ on
+   (max_price_mapping.name = products_with_manu_name.manu_name
+    and
+    max_price_mapping.price = products_with_manu_name.price); 
 
 
 -- 1.17 Add a new product: Loudspeakers, $70, manufacturer 2.

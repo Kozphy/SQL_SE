@@ -81,7 +81,6 @@ on Boxes (Warehouse);
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
 exec sys.sp_helpindex @objname= N'Boxes';
 
--- 3.18 Remove (drop) the index you added just
+-- 3.18 Remove (drop) the index you just added 
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
-create index PK_name
-on Boxes ();
+

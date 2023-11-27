@@ -7,5 +7,6 @@ select @CategoryName AS categoryName;
 insert into Categories (CategoryName, Description, Picture)
 select  CompanyName, ContactName, Phone
 from Customers where CustomerID = 'ALFKI';
+
 select * from Categories;
 

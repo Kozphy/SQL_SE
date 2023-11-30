@@ -66,34 +66,39 @@ group by Name
 order by price asc;
 
 -- 1.16 Select the name of each manufacturer along with the name and price of its most expensive product. (solve this)
-select top 1 with ties
-Manufacturers.Name as manufacturers_name,
-Products.Price,
-Products.Name as products_name
-from Manufacturers
-join Products on Manufacturers.Code = Products.Manufacturer
-group by Products.Price, Products.Name, Manufacturers.Name
-order by RANK() OVER(PARTITION BY Manufacturers.Name order by Price desc);
+SELECT TOP 1 WITH ties manufacturers.NAME AS manufacturers_name,
+                       products.price,
+                       products.NAME      AS p
+FROM   manufacturers
+       JOIN products
+         ON manufacturers.code = products.manufacturer
+GROUP  BY products.price,
+          products.NAME,
+          manufacturers.NAME
+ORDER  BY Rank()
+            OVER(
+              partition BY manufacturers.NAME
+              ORDER BY price DESC);
 
-select 
-max_price_mapping.name as manu_name, 
-max_price_mapping.price, 
-products_with_manu_name.name as product_name
-from 
-    (SELECT Manufacturers.Name, MAX(Price) price
-     FROM Products, Manufacturers
-     WHERE Manufacturer = Manufacturers.Code
-     GROUP BY Manufacturers.Name)
-     as max_price_mapping
-   left join
-     (select products.*, manufacturers.name manu_name
-      from products join manufacturers
-      on (products.manufacturer = manufacturers.code))
-      as products_with_manu_name
- on
-   (max_price_mapping.name = products_with_manu_name.manu_name
-    and
-    max_price_mapping.price = products_with_manu_name.price); 
+SELECT manufacturers_name,
+       price
+FROM   (SELECT manufacturers.NAME  AS manufacturers_name,
+               Max(products.price) AS product_price
+        FROM   products
+               JOIN manufacturers
+                 ON products.manufacturer = manufacturers.code
+        GROUP  BY manufacturers.NAME) AS manu_product_max_price_table
+       LEFT JOIN (SELECT products.NAME      AS product_name,
+                         products.price,
+                         manufacturers.NAME AS manu_name
+                  FROM   manufacturers
+                         JOIN products
+                           ON manufacturers.code = products.manufacturer) AS
+              product_with_manu_name
+              ON ( manu_product_max_price_table.product_price =
+                   product_with_manu_name.price
+                   AND manu_product_max_price_table.manufacturers_name =
+                       product_with_manu_name.manu_name ); 
 
 
 -- 1.17 Add a new product: Loudspeakers, $70, manufacturer 2.

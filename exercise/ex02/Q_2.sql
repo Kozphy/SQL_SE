@@ -1,3 +1,5 @@
+use ex02;
+
 -- LINK : https://en.wikibooks.org/wiki/SQL_Exercises/Employee_management
 -- 2.1 Select the last name of all employees.
 select LastName from Employees;
@@ -46,7 +48,6 @@ where Budget > 60000;
 -- 2.13 Select the departments with a budget larger than the average budget of all the departments.
 select * from Departments as d
 where Budget > (select avg(budget) from Departments)
-
 
 -- 2.14 Select the names of departments with more than two employees.
 select d.Name from Departments AS d 

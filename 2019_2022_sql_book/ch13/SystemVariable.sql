@@ -26,3 +26,4 @@ PRINT CAST('2023-06-30' AS DATETIME) - 1
 -- convert() function
 PRINT '學分總數:' + CONVERT(CHAR, @total)
 PRINT CONVERT(DATETIME, '2023-06-30') - 1
+

@@ -167,6 +167,14 @@ SET @result = CHOOSE(@type, '全票', '半票', '敬老票', '免票')
 PRINT @result
 
 -- error handling
+/*
+	ERROR_NUMBER() 傳回錯誤號碼
+	ERROR_MESSAGE() 傳回完整錯誤訊息
+	ERROR_SEVERITY() 傳回錯誤嚴重性代碼
+	ERROR_STATE() 傳回錯誤的狀態碼
+	ERROR_LINE() 傳回造成錯誤的行列號
+	ERROR_PROCEDURE() 傳回發生錯誤的預存或觸發程序名稱
+*/
 BEGIN TRY
 	SELECT 1 / 0 -- 除以零的錯誤
 END TRY
@@ -179,4 +187,55 @@ BEGIN CATCH
 			ERROR_LINE() AS ErrorLine,
 			ERROR_MESSAGE() AS ErrorMessage
 END CATCH
+
+-- Using RAISERROR() function creating error info
+/*
+CREATE error info, SQL server 錯誤嚴重性等級分為 1 ~ 25, 
+19 ~ 25 只有系統管理者才有權限設定。
+*/
+EXEC sys.sp_addmessage 55555, 5, 'Error! grade <0!',
+	@lang = 'us_english'
+GO
+
+EXEC sys.sp_addmessage 55555, 5, '成績為負數的錯誤!',
+	@lang = '繁體中文'
+
+-- create error info
+/*
+	RAISERROR()
+*/
+BEGIN TRY
+	RAISERROR (55555, 17, 10)
+END TRY
+BEGIN CATCH
+	SELECT ERROR_NUMBER() AS ErrorNumber,
+			ERROR_SEVERITY() AS ErrorSeverity,
+			ERROR_STATE() AS ErrorState,
+			ERROR_PROCEDURE() AS ErrorProcedure,
+			ERROR_LINE() AS ErrorLine,
+			ERROR_MESSAGE() AS ErrorMessage
+END CATCH
+
+-- try/catch THROW command statement
+CREATE TABLE MyTEMPDB (
+	ID INT PRIMARY KEY
+)
+BEGIN TRY
+	INSERT MyTEMPDB (ID)
+		VALUES (1)
+	INSERT MyTEMPDB (ID)
+		VALUES (1) -- repeat insert record
+END TRY
+
+BEGIN CATCH
+	THROW
+END CATCH
+
+BEGIN TRY
+	SELECT 1/0
+END TRY
+BEGIN CATCH
+	THROW 51000, 'divided by 1 error....'
+END CATCH
+
 

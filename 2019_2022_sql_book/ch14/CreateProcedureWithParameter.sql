@@ -124,6 +124,10 @@ END
 
 EXEC 薪水查詢 @name= N'王心零',  @salary=50000;
 
+/* 
+	In following query, the keyword 'OUTPUT' is used to 
+	store the output result.
+*/
 DECLARE @mySalary MONEY
 EXEC 薪水查詢 '張無忌', @salary = @mySalary OUTPUT
 PRINT N'Joe''s 薪水: ' + convert(varchar, @mySalary)

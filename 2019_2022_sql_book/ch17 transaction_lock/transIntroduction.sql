@@ -16,3 +16,25 @@ begin tran
 	ELSE
 	ROLLBACK TRAN
 
+
+select * into 班級備份 from 班級
+GO
+
+select * into 班級備份 from 學號
+go
+
+begin tran
+delete 班級備份
+where 學號 = 'S001'
+if @@ROWCount > 5
+	BEGIN
+		ROLLBACK TRAN
+		print '回復刪除操作!'
+	end
+else
+	begin
+		delete 學生備份
+		where 學號 = 'S001'
+		commit TRAN
+		print '認可刪除操作!'
+	END
